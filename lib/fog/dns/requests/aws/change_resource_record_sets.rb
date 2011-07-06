@@ -55,7 +55,7 @@ module Fog
               if change_item[:alias_target]
                 hosted_zone_id_tag = %Q{<HostedZoneId>#{change_item[:alias_target][:hosted_zone_id]}</HostedZoneId>}
                 dns_name_tag = %Q{<DNSName>#{change_item[:alias_target][:dns_name]}</DNSName>}
-                alias_tag = %Q{<AliasTarget>#{hosted_zone_id}#{dns_name_tag}</AliasTarget>}
+                alias_tag = %Q{<AliasTarget>#{hosted_zone_id_tag}#{dns_name_tag}</AliasTarget>}
                 resource_tag = ""
               else
                 resource_records= change_item[:resource_records]
