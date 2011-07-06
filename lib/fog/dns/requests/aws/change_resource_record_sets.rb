@@ -53,6 +53,7 @@ module Fog
               ttl_tag = %Q{<TTL>#{change_item[:ttl]}</TTL>}
               
               if change_item[:alias_target]
+                ttl_tag = ''
                 hosted_zone_id_tag = %Q{<HostedZoneId>#{change_item[:alias_target][:hosted_zone_id]}</HostedZoneId>}
                 dns_name_tag = %Q{<DNSName>#{change_item[:alias_target][:dns_name]}</DNSName>}
                 alias_tag = %Q{<AliasTarget>#{hosted_zone_id_tag}#{dns_name_tag}</AliasTarget>}
@@ -73,7 +74,7 @@ module Fog
             changes+= '</Changes></ChangeBatch>'
           end
 
-          body =   %Q{<?xml version="1.0" encoding="UTF-8"?><ChangeResourceRecordSetsRequest xmlns="https://route53.amazonaws.com/doc/2010-10-01/">#{changes}</ChangeResourceRecordSetsRequest>}
+          body =   %Q{<?xml version="1.0" encoding="UTF-8"?><ChangeResourceRecordSetsRequest xmlns="https://route53.amazonaws.com/doc/2011-05-05/">#{changes}</ChangeResourceRecordSetsRequest>}
           request({
             :body       => body,
             :parser     => Fog::Parsers::DNS::AWS::ChangeResourceRecordSets.new,

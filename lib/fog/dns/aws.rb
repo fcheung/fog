@@ -84,7 +84,7 @@ module Fog
           @path     = options[:path]      || '/'
           @port     = options[:port]      || 443
           @scheme   = options[:scheme]    || 'https'
-          @version  = options[:version]  || '2010-10-01'
+          @version  = options[:version]  || '2011-05-05'
           unless options.has_key?(:persistent)
             options[:persistent] = true
           end
