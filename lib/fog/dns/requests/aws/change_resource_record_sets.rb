@@ -52,7 +52,7 @@ module Fog
               type_tag = %Q{<Type>#{change_item[:type]}</Type>}
               ttl_tag = %Q{<TTL>#{change_item[:ttl]}</TTL>}
               
-              if change_item[:alias_target]
+              if change_item[:alias_target] && !change_item[:alias_target].empty?
                 ttl_tag = ''
                 hosted_zone_id_tag = %Q{<HostedZoneId>#{change_item[:alias_target]['HostedZoneId']}</HostedZoneId>}
                 dns_name_tag = %Q{<DNSName>#{change_item[:alias_target]['DNSName']}</DNSName>}
