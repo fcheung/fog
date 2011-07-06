@@ -21,6 +21,9 @@ module Fog
         #       * 'Name'<~String> - 
         #       * 'Type'<~String> - 
         #       * 'TTL'<~Integer> - 
+        #       * 'AliasTarget'<~Hash>
+        #          *'HostedZoneId'<~String>
+        #          *'DNSName'<~String>
         #       * 'ResourceRecords'<~Array>
         #         * 'Value'<~String> - 
         #     * 'IsTruncated'<~String> - 

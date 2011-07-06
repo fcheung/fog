@@ -17,7 +17,7 @@ module Fog
         attribute :type,        :aliases => ['Type']
         attribute :status,      :aliases => ['Status']
         attribute :created_at,  :aliases => ['SubmittedAt']
-
+        attribute :alias_target,:aliases => ['AliasTarget']
         def initialize(attributes={})
           self.ttl ||= 3600
           super

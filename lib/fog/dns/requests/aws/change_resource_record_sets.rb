@@ -51,21 +51,30 @@ module Fog
               name_tag = %Q{<Name>#{change_item[:name]}</Name>}
               type_tag = %Q{<Type>#{change_item[:type]}</Type>}
               ttl_tag = %Q{<TTL>#{change_item[:ttl]}</TTL>}
-              resource_records= change_item[:resource_records]
-              resource_record_tags = ''
-              resource_records.each { |record|
-                resource_record_tags+= %Q{<ResourceRecord><Value>#{record}</Value></ResourceRecord>}
-              }
-              resource_tag=  %Q{<ResourceRecords>#{resource_record_tags}</ResourceRecords>}
               
-              change_tags = %Q{<Change>#{action_tag}<ResourceRecordSet>#{name_tag}#{type_tag}#{ttl_tag}#{resource_tag}</ResourceRecordSet></Change>}
+              if change_item[:alias_target] && !change_item[:alias_target].empty?
+                ttl_tag = ''
+                hosted_zone_id_tag = %Q{<HostedZoneId>#{change_item[:alias_target]['HostedZoneId']}</HostedZoneId>}
+                dns_name_tag = %Q{<DNSName>#{change_item[:alias_target]['DNSName']}</DNSName>}
+                alias_tag = %Q{<AliasTarget>#{hosted_zone_id_tag}#{dns_name_tag}</AliasTarget>}
+                resource_tag = ""
+              else
+                resource_records= change_item[:resource_records]
+                resource_record_tags = ''
+                resource_records.each { |record|
+                  resource_record_tags+= %Q{<ResourceRecord><Value>#{record}</Value></ResourceRecord>}
+                }
+                resource_tag=  %Q{<ResourceRecords>#{resource_record_tags}</ResourceRecords>}
+                alias_tag = ""
+              end
+              change_tags = %Q{<Change>#{action_tag}<ResourceRecordSet>#{name_tag}#{type_tag}#{ttl_tag}#{resource_tag}#{alias_tag}</ResourceRecordSet></Change>}
               changes+= change_tags
             }          
             
             changes+= '</Changes></ChangeBatch>'
           end
 
-          body =   %Q{<?xml version="1.0" encoding="UTF-8"?><ChangeResourceRecordSetsRequest xmlns="https://route53.amazonaws.com/doc/2010-10-01/">#{changes}</ChangeResourceRecordSetsRequest>}
+          body =   %Q{<?xml version="1.0" encoding="UTF-8"?><ChangeResourceRecordSetsRequest xmlns="https://route53.amazonaws.com/doc/2011-05-05/">#{changes}</ChangeResourceRecordSetsRequest>}
           request({
             :body       => body,
             :parser     => Fog::Parsers::DNS::AWS::ChangeResourceRecordSets.new,

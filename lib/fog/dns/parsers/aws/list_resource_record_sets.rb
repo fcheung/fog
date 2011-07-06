@@ -21,9 +21,12 @@ module Fog
                 @resource_record_set[name] = value
               when 'Value'
                 @resource_record_set['ResourceRecords'] << value
+              when 'HostedZoneId', 'DNSName'
+                @resource_record_set['AliasTarget'][name] = value
               when 'ResourceRecordSet'
                 @response['ResourceRecordSets'] << @resource_record_set
                 @resource_record_set = {}
+                @resource_record_set['AliasTarget'] = {}
                 @resource_record_set['ResourceRecords'] = []
               when 'ResourceRecordSets'
                 @section = :main
