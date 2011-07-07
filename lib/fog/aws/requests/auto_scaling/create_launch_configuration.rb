@@ -42,7 +42,7 @@ module Fog
             end
           end
           
-          if instance_monitoring = options.delete('InstanceMonitoring')
+          if !(instance_monitoring = options.delete('InstanceMonitoring')).nil?
             options['InstanceMonitoring.Enabled'] =  instance_monitoring
           end
           if security_groups = options.delete('SecurityGroups')
