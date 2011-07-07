@@ -18,6 +18,7 @@ module Fog
     service(:ses,             'aws/ses')
     service(:simpledb,        'aws/simpledb')
     service(:storage,         'storage/aws')
+    service(:auto_scaling,    'aws/auto_scaling')
 
     def self.indexed_param(key, values)
       params = {}
