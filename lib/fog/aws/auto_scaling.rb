@@ -19,6 +19,7 @@ module Fog
       request :enable_metrics_collection
       
       request :describe_auto_scaling_groups
+      request :describe_launch_configurations
       class Mock
 
         def initialize(options={})
