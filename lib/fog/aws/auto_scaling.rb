@@ -17,6 +17,8 @@ module Fog
 
       request :disable_metrics_collection
       request :enable_metrics_collection
+      
+      request :describe_auto_scaling_groups
       class Mock
 
         def initialize(options={})
@@ -104,7 +106,9 @@ module Fog
               :method     => 'POST',
               :parser     => parser
             })
+          
           end
+          
 
           response
         end
