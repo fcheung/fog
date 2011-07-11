@@ -20,6 +20,8 @@ module Fog
       
       request :describe_auto_scaling_groups
       request :describe_launch_configurations
+      
+      request :describe_scaling_activities
       class Mock
 
         def initialize(options={})
