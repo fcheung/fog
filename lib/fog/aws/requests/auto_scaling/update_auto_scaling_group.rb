@@ -28,7 +28,7 @@ module Fog
         # ==== See Also
         # http://docs.amazonwebservices.com/AutoScaling/latest/APIReference/API_UpdateAutoScalingGroup.html
         #
-        def update_auto_scaling_group(group_name, options=nil)
+        def update_auto_scaling_group(group_name, options={})
 
           if availability_zones = options.delete('AvailabilityZones')
             options.merge!(Fog::AWS.indexed_param('AvailabilityZones.member', [*availability_zones]))
