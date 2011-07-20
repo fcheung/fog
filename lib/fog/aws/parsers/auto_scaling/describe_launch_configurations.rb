@@ -39,7 +39,8 @@ module Fog
           def end_element(name)
             
             case name
-              
+            case 'CreatedTime'
+              @launch_configuration[name] = Time.parse(value)
             when 'DeviceName', 'VirtualDevice'
               @block_device_mapping[name] = value
             when 'SnapshotId', 'VolumeSize'
